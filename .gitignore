@@ -1,0 +1,5 @@
+fire_detection_env/
+dataset/
+output/
+*.pyc
+__pycache__/
