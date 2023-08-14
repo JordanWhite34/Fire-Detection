@@ -29,7 +29,7 @@ Explain how to use the trained model to make predictions on new images. Include 
 Describe the dataset in detail, including the source, the number of images in each class, and any preprocessing or augmentation techniques used.
 
 ## Project Structure
-
+```
 fire_detection_project/
 │
 ├── dataset/
@@ -56,7 +56,7 @@ fire_detection_project/
 ├── README.md
 │
 └── requirements.txt
-
+```
 
 ## Model Architecture
 
