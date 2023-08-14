@@ -9,6 +9,7 @@ This project aims to develop a machine learning model that can accurately distin
 - [Installation](#installation)
 - [Usage](#usage)
 - [Dataset](#dataset)
+- [Project Structure](#project-structure)
 - [Model Architecture](#model-architecture)
 - [Evaluation Metrics](#evaluation-metrics)
 - [Contributing](#contributing)
@@ -26,6 +27,36 @@ Explain how to use the trained model to make predictions on new images. Include 
 ## Dataset
 
 Describe the dataset in detail, including the source, the number of images in each class, and any preprocessing or augmentation techniques used.
+
+## Project Structure
+
+fire_detection_project/
+│
+├── dataset/
+│   ├── fire_images/
+│   └── non-fire_images/
+│
+├── fire_detection_env/
+│
+├── src/
+│   ├── models/
+│   ├── utils/
+│   ├── preprocessing/
+│   └── main.py
+│
+├── notebooks/
+│
+├── output/
+│   ├── models/
+│   ├── logs/
+│   └── figures/
+│
+├── tests/
+│
+├── README.md
+│
+└── requirements.txt
+
 
 ## Model Architecture
 
