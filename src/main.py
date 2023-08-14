@@ -1,23 +1,46 @@
-from PIL import Image
-import matplotlib.pyplot as plt
+from preprocessing import load_and_preprocess_data
 
-# Open an image file
-img1 = Image.open('../fire_dataset/fire_images/fire.1.png')
-img2 = Image.open('../fire_dataset/non_fire_images/non_fire.1.png')
 
-# Create a subplot with 1 row and 2 columns
-fig, axes = plt.subplots(nrows=1, ncols=2)
+def build_model():
+    # Define your model architecture here
+    # Return the compiled model
+    pass
 
-# Display the images
-axes[0].imshow(img1)
-axes[1].imshow(img2)
 
-# Set titles
-axes[0].set_title('Fire')
-axes[1].set_title('Non Fire')
+def train_model(model, X_train, y_train, X_val, y_val):
+    # Train the model using the training data
+    # Validate the model using the validation data
+    # Return the trained model
+    pass
 
-# Remove the axis
-axes[0].axis('off')
-axes[1].axis('off')
 
-plt.show()
+def evaluate_model(model, X_test, y_test):
+    # Evaluate the model using the test data
+    # Print or return the evaluation metrics
+    pass
+
+
+def save_model(model):
+    # Save the trained model to disk
+    pass
+
+
+def main():
+    # Load and preprocess the data
+    X_train, X_val, X_test, y_train, y_val, y_test = load_and_preprocess_data()
+
+    # Build the model
+    model = build_model()
+
+    # Train the model
+    model = train_model(model, X_train, y_train, X_val, y_val)
+
+    # Evaluate the model
+    evaluate_model(model, X_test, y_test)
+
+    # Save the model (optional)
+    save_model(model)
+
+
+if __name__ == "__main__":
+    main()
