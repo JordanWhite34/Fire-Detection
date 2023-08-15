@@ -121,9 +121,22 @@ def evaluate_model(model, X_test, y_test):
     return loss, accuracy
 
 
-def save_model(model):
-    # Save the trained model to disk
-    pass
+def save_model(model, file_path='models/saved_model.h5'):
+    """
+    Saves the given trained model to the specified file path.
+
+    Parameters:
+        model: The trained neural network model to be saved.
+        file_path: The file path where the model will be saved (default is 'saved_model.h5').
+
+    Returns:
+        None
+    """
+
+    # Saving the model
+    model.save(file_path)
+
+    print("Model saved to ", file_path)
 
 
 def main():
