@@ -1,0 +1,30 @@
+# Ignore Conda environment files and directories
+fire_detection_env/
+
+# Ignore PyCharm project files and directories
+.idea/
+*.iml
+fire_dataset/
+src/models/
+
+# Ignore compiled Python files
+*.pyc
+__pycache__/
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore log files
+*.log
+
+# Ignore all .DS_Store files (common on macOS)
+.DS_Store
+
+# Ignore macOS metadata files
+._*
+
+# Ignore build and distribution directories (if packaging)
+build/
+dist/
+
+
