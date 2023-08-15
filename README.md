@@ -52,11 +52,11 @@ To change the architecture of the model, change def build_model(), found in main
 
 ## Examples
 
-![Fire Example](examples/Figure_1.png?raw=true "Fire Correctly Predicted")
-![No Fire Example](examples/Figure_2.png?raw=true "Fire Incorrectly Predicted")
-![No Fire Example](examples/Figure_3.png?raw=true "No Fire Correctly Predicted")
-![Fire Example](examples/Figure_4.png?raw=true "Fire Correctly Predicted")
-![No Fire Example](examples/Figure_5.png?raw=true "No Fire Correctly Predicted")
+![Fire Example](src/results/result_0.png?raw=true "Fire Correctly Predicted")
+![No Fire Example](src/results/result_1.png?raw=true "No Fire Correctly Predicted")
+![No Fire Example](src/results/result_2.png?raw=true "No Fire Correctly Predicted")
+![Fire Example](src/results/result_3.png?raw=true "Fire Correctly Predicted")
+![No Fire Example](src/results/result_4.png?raw=true "No Fire Correctly Predicted")
 
 ## Contact
 
