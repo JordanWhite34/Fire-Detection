@@ -100,9 +100,25 @@ def train_model(model, X_train, y_train, X_val, y_val):
 
 
 def evaluate_model(model, X_test, y_test):
-    # Evaluate the model using the test data
-    # Print or return the evaluation metrics
-    pass
+    """
+    Evaluates the given model using the provided validation data
+
+    Parameters:
+        model: The trained neural network to be evaluated
+        X_test, y_test: The testing data and corresponding labels
+
+    Returns:
+        loss: The loss value on the testing data
+        accuracy: The accuracy value on the testing data
+    """
+
+    # Evaluating the Model
+    loss, accuracy = model.evaluate(X_test, y_test, verbose=0)
+
+    print("Test Loss:", loss)
+    print("Test accuracy", accuracy)
+
+    return loss, accuracy
 
 
 def save_model(model):
