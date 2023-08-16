@@ -37,14 +37,6 @@ enhance safety, monitoring, and response mechanisms. Here's a list of possible a
     conda env create -f environment.yml
     conda activate your_environment_name
     ```
-4. Downloading the Fire Dataset
-
-   The project relies on a specific dataset available on Kaggle. Follow the instructions below to download and set up
-   the dataset:
-    1. Download the dataset from this
-       link: https://www.kaggle.com/datasets/phylake1337/fire-dataset/download?datasetVersionNumber=1
-    2. Make sure it is unzipped and placed inside the root directory of this project
-    3. Unzip the .zip file
 
 ## Usage
 
