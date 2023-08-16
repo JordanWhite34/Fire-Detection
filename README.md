@@ -37,10 +37,18 @@ enhance safety, monitoring, and response mechanisms. Here's a list of possible a
     conda env create -f environment.yml
     conda activate your_environment_name
     ```
+4. Downloading the Fire Dataset
+
+   The project relies on a specific dataset available on Kaggle. Follow the instructions below to download and set up
+   the dataset:
+    1. Download the dataset from this
+       link: https://www.kaggle.com/datasets/phylake1337/fire-dataset/download?datasetVersionNumber=1
+    2. Make sure it is unzipped and placed inside the root directory of this project
+    3. Unzip the .zip file
 
 ## Usage
 
-To train a model, run main.py from the Fire Detection directory:
+To train a model, run main.py from the Fire Detection root directory:
 
     python src/main.py
 
@@ -54,9 +62,14 @@ To change the architecture of the model, change def build_model(), found in main
 
 ![Fire Example](src/results/result_0.png?raw=true "Fire Correctly Predicted")
 ![No Fire Example](src/results/result_1.png?raw=true "No Fire Correctly Predicted")
-![No Fire Example](src/results/result_2.png?raw=true "No Fire Correctly Predicted")
-![Fire Example](src/results/result_3.png?raw=true "Fire Correctly Predicted")
-![No Fire Example](src/results/result_4.png?raw=true "No Fire Correctly Predicted")
+
+## Dataset Acknowledgment
+
+The dataset used in this project, "Fire Dataset," was obtained from Kaggle. You can access the
+dataset [here](https://www.kaggle.com/datasets/phylake1337/fire-dataset).
+
+We would like to thank the creator and Kaggle for making this dataset publicly available.
+
 
 ## Contact
 
