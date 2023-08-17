@@ -58,6 +58,36 @@ To test the model with a visualization of its results, run visualize_predictions
 
 To change the architecture of the model, change def build_model(), found in main.py.
 
+## Performance
+
+    Evaluation Metrics:
+    Accuracy: 0.965
+    Precision: 0.9736842105263158
+    Recall: 0.9801324503311258
+    F1-score: 0.976897689768977
+    Confusion Matrix:
+    [[ 45   4]
+     [  3 148]]
+
+The fire detection model has demonstrated strong performance across various evaluation metrics. The results are as
+follows:
+
+Accuracy: 96.5% - Reflecting the overall correctness of the model in classifying both fire and non-fire images.
+Precision: 97.4% - Indicating a high rate of true positive fire predictions among all positive predictions, minimizing
+false alarms.
+Recall: 98.0% - Signifying the model's ability to correctly identify the majority of actual fire instances, ensuring
+timely detection.
+F1-score: 97.7% - Representing the harmonic mean of precision and recall, providing a balanced view of the model's
+performance.
+The confusion matrix further illustrates the model's effectiveness:
+
+True Negative (Non-Fire Correctly Classified): 45
+False Positive (Non-Fire Incorrectly Classified as Fire): 4
+False Negative (Fire Incorrectly Classified as Non-Fire): 3
+True Positive (Fire Correctly Classified): 148
+These results highlight the model's capability to accurately detect fire occurrences with minimal errors, making it a
+reliable solution for real-world applications.
+
 ## Examples
 
 ![Fire Example](src/results/result_0.png?raw=true "Fire Correctly Predicted")
