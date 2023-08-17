@@ -3,7 +3,7 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 from main import load_and_preprocess_data
 
 
-def evaluate_model(model_path, X_test, y_test):
+def metrics(model_path, X_test, y_test):
     """
     Evaluates the given model using the provided test data.
 
@@ -45,4 +45,4 @@ def evaluate_model(model_path, X_test, y_test):
 if __name__ == "__main__":
     model_path = 'models/saved_model.h5'
     _, _, X_test, _, _, y_test = load_and_preprocess_data()
-    evaluate_model(model_path, X_test, y_test)
+    metrics(model_path, X_test, y_test)

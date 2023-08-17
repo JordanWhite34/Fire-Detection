@@ -1,4 +1,5 @@
 from preprocessing import load_and_preprocess_data
+from evaluation import metrics
 from keras.preprocessing.image import ImageDataGenerator
 from keras.callbacks import EarlyStopping, ModelCheckpoint
 from keras.models import Sequential
@@ -151,6 +152,9 @@ def main():
 
     # Evaluate the model
     evaluate_model(model, X_test, y_test)
+
+    # Run metrics on model
+    metrics(model, X_test, y_test)
 
     # Save the model (optional)
     save_model(model)
