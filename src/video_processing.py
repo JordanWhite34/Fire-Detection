@@ -1,6 +1,9 @@
 import cv2
+from keras.models import load_model
+
 
 video_path = '../fire_dataset/fire_videos/fire.mp4'
+testing_model = load_model('models/best_model.h5')
 
 
 def read_video(path):
@@ -36,6 +39,7 @@ def preprocess_frame(frame):
     """
 
     # Right now I don't think this will work when the fire is outside the crop
+    # TODO: Adjust it somehow so crop doesnt mess it up
 
     p_frame = frame
 
@@ -46,10 +50,28 @@ def preprocess_frame(frame):
     return p_frame
 
 
+def apply_model(model, frame):
+    """
+    Applies model to single frame of video
+
+    Parameter:
+        model: used model
+        frame: frame image
+
+    Returns:
+        label: Fire or fire depending on how sure the model is
+    """
+    prediction = model.predict(frame)
+    label = "Fire" if prediction[0] > 0.5 else "No Fire"
+    return label
+
 
 def main():
     # Load and preprocess the data
-    read_video(video_path)
+    video = read_video(video_path)
+    frame = preprocess_frame(video)  # TODO: Make work for all frames in the video
+    label = apply_model(testing_model,
+                        frame)  # TODO: in the loop from above, create some sort of list that labels each frame, this can determine labels for frames
 
 
 if __name__ == "__main__":
