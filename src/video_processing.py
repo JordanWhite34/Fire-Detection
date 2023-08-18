@@ -69,9 +69,23 @@ def apply_model(model, frame):
 def main():
     # Load and preprocess the data
     video = read_video(video_path)
-    frame = preprocess_frame(video)  # TODO: Make work for all frames in the video
-    label = apply_model(testing_model,
-                        frame)  # TODO: in the loop from above, create some sort of list that labels each frame, this can determine labels for frames
+
+    # Creating list to store fire detection results for each frame
+    fire_detection_results = []
+
+    while True:
+        # Read next frame
+        ret, frame = video.read()
+
+        # Preprocess frame
+        p_frame = preprocess_frame(frame)
+
+        # Run frame through model
+        fire_detection_results.append(apply_model(testing_model, p_frame))
+
+        # Break loop at end of video
+        if not ret:
+            break
 
 
 if __name__ == "__main__":
