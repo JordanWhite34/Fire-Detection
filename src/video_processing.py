@@ -54,16 +54,31 @@ def apply_model(model, frame):
     """
     Applies model to single frame of video
 
-    Parameter:
-        model: used model
+    Parameters:
+        model: model being used to determine fire presence
         frame: frame image
 
     Returns:
-        label: Fire or fire depending on how sure the model is
+        label: True or False depending on if the model 'sees' fire in the frame
     """
     prediction = model.predict(frame)
-    label = "Fire" if prediction[0] > 0.5 else "No Fire"
+    label = True if prediction[0] > 0.5 else False
     return label
+
+
+def save_results(results):
+    """
+    Saves predictions of model in a .txt file
+
+    Parameter:
+        results: list of True's and False's showing if fire is detected for each frame
+    """
+    # Open the file in write mode, creating it if it does not exist
+    with open('results/results.txt', 'w') as file:
+        # Iterate through the results list
+        for result in results:
+            # Write 'True' or 'False' in the file on a new line
+            file.write(str(result) + '\n')
 
 
 def main():
@@ -86,6 +101,9 @@ def main():
         # Break loop at end of video
         if not ret:
             break
+
+    # Save results to a text file in /results/results.txt
+    save_results(fire_detection_results)
 
 
 if __name__ == "__main__":
