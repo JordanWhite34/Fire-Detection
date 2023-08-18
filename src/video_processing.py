@@ -3,27 +3,48 @@ import cv2
 video_path = '../fire_dataset/fire_videos/fire.mp4'
 
 
-def read_video(video_path):
+def read_video(path):
+    """
+    Opens video stream for reading frames
+
+    Parameter:
+        path: file path of video
+
+    Returns:
+        video: The video capture object
+    """
     # Create a VideoCapture object
-    video = cv2.VideoCapture(video_path)
+    video = cv2.VideoCapture(path)
+
+    # Check for successful opening of video
     if not video.isOpened():
-        print("Error: video could not be opened")
+        print("Could not read video")
+        return None
     else:
-        # Loop through video frames
-        while True:
-            # Reading next frame
-            ret, frame = video.read()
-            if not ret:
-                break  # Breaking loop if end of video
+        return video
 
-            cv2.imshow('Video', frame)  # Displaying frame
 
-            if cv2.waitKey(30) and 0xFF == ord('q'):
-                break
+def preprocess_frame(frame):
+    """
+    Prepares a single video frame for the model, applying same preprocessing used during training
 
-        # Releasing video object, closing windows
-        video.release()
-        cv2.destroyAllWindows()
+    Parameter:
+        frame: frame image
+
+    Returns:
+        p_frame: The processed
+    """
+
+    # Right now I don't think this will work when the fire is outside the crop
+
+    p_frame = frame
+
+    if p_frame is not None:
+        p_frame = cv2.resize(p_frame, (224, 224))  # resize
+        p_frame = p_frame / 255.0  # normalize
+
+    return p_frame
+
 
 
 def main():
