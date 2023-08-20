@@ -34,7 +34,7 @@ Train the CNN model using the provided dataset:
 
 ### Evaluating the Model
 
-Evaluate the trained model using various metrics:
+Evaluate the trained model using various metrics (Accuracy, Precision, Recall, F1, Confusion Matrix):
 
     python src/evaluation.py
 
