@@ -12,6 +12,7 @@ def main():
 
     # Load and Preprocess Some Test Images
     _, _, X_test, _, _, y_test = load_and_preprocess_data()
+    print(X_test[0].shape)
 
     # Make Predictions
     predictions = model.predict(X_test)

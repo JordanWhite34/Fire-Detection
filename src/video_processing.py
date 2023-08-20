@@ -1,4 +1,5 @@
 import cv2
+import numpy as np
 from keras.models import load_model
 
 
@@ -27,7 +28,7 @@ def read_video(path):
         return video
 
 
-def preprocess_frame(frame):
+def preprocess_frame(p_frame):
     """
     Prepares a single video frame for the model, applying same preprocessing used during training
 
@@ -41,29 +42,28 @@ def preprocess_frame(frame):
     # Right now I don't think this will work when the fire is outside the crop
     # TODO: Adjust it somehow so crop doesnt mess it up
 
-    p_frame = frame
-
     if p_frame is not None:
         p_frame = cv2.resize(p_frame, (224, 224))  # resize
         p_frame = p_frame / 255.0  # normalize
-
     return p_frame
 
 
-def apply_model(model, frame):
+def apply_model(model, frames):
     """
     Applies model to single frame of video
 
     Parameters:
         model: model being used to determine fire presence
-        frame: frame image
+        frames: frame image list
 
     Returns:
         label: True or False depending on if the model 'sees' fire in the frame
     """
-    prediction = model.predict(frame)
-    label = True if prediction[0] > 0.5 else False
-    return label
+    frames = np.array(frames)
+    predictions = model.predict(frames)
+    # Convert predictions to binary labels (fire or non-fire)
+    predicted_labels = (predictions > 0.5).astype(int)
+    return predicted_labels
 
 
 def save_results(results):
@@ -86,21 +86,24 @@ def main():
     video = read_video(video_path)
 
     # Creating list to store fire detection results for each frame
-    fire_detection_results = []
+    fire_detection = []
 
     while True:
         # Read next frame
         ret, frame = video.read()
 
-        # Preprocess frame
-        p_frame = preprocess_frame(frame)
-
-        # Run frame through model
-        fire_detection_results.append(apply_model(testing_model, p_frame))
-
         # Break loop at end of video
         if not ret:
             break
+
+        # Preprocess frame
+        p_frame = preprocess_frame(frame)
+
+        # Put processed frame in list
+        fire_detection.append(p_frame)
+
+    # Run frames through model
+    fire_detection_results = apply_model(testing_model, fire_detection)
 
     # Save results to a text file in /results/results.txt
     save_results(fire_detection_results)
