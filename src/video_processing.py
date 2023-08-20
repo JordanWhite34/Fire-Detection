@@ -2,8 +2,7 @@ import cv2
 import numpy as np
 from keras.models import load_model
 
-
-video_path = '../fire_dataset/fire_videos/fire.mp4'
+video_path = '../fire_dataset/fire_videos/fire224.mp4'
 testing_model = load_model('models/best_model.h5')
 
 
