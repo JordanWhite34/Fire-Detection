@@ -1,4 +1,5 @@
 import os
+import sys
 import tempfile
 import cv2
 import numpy as np
@@ -7,6 +8,10 @@ from src.video_processing import read_video, preprocess_frame, apply_model, save
 
 
 def test_read_video():
+    # Suppress stderr
+    stderr = sys.stderr
+    sys.stderr = open(os.devnull, 'w')
+
     # Test with valid video path
     video = read_video('../fire_dataset/fire_videos/fire224.mp4')
     assert video is not None
@@ -15,6 +20,9 @@ def test_read_video():
     # Test with invalid video path
     video = read_video('invalid/path')
     assert video is None
+
+    # Restore stderr
+    sys.stderr = stderr
 
 
 def test_preprocess_frame():
