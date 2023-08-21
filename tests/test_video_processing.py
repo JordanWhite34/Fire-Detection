@@ -30,18 +30,19 @@ def test_preprocess_frame():
     assert preprocess_frame(None) is None
 
 
-# def test_apply_model():
-#     # Load the model
-#     model = load_model('/Users/jordanwhite/Projects/Fire-Detection/src/models/saved_model.h5')
-#     model.summary()
-#
-#     # Create dummy frames
-#     frames = [np.zeros((224, 224, 3)) for _ in range(5)]
-#     predicted_labels = apply_model(model, frames)
-#
-#     # Check if the predicted labels are binary
-#     assert predicted_labels.shape == (5, 1)
-#     assert set(predicted_labels.flatten()) <= {0, 1}
+def test_apply_model():
+    # Load the model
+    model = load_model('../src/models/saved_model.h5')
+
+    # Create dummy frames
+    frames = [np.zeros((224, 224, 3)) for _ in range(5)]
+    frames = np.array(frames)
+
+    predicted_labels = apply_model(model, frames)
+
+    # Check if the predicted labels are binary
+    assert predicted_labels.shape == (5, 1)
+    assert set(predicted_labels.flatten()) <= {0, 1}
 
 
 def test_save_results():

@@ -1,11 +1,13 @@
 from src.evaluation import metrics
 from keras.models import Sequential
+from keras.models import load_model
 from keras.layers import Dense
 import numpy as np
 
 
 def test_metrics():
     # Create a dummy model for testing
+    true_model = load_model('../src/models/saved_model.h5')
     model_path = '../src/models/saved_model.h5'
     model = Sequential([
         Dense(10, activation='relu', input_shape=(10,)),
@@ -28,3 +30,4 @@ def test_metrics():
 
     # Check if the confusion matrix has the correct shape
     assert conf_matrix.shape == (2, 2)
+    true_model.save(model_path)
