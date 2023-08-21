@@ -81,7 +81,7 @@ def train_model(model, X_train, y_train, X_val, y_val):
     # Early Stopping and Model Checkpointing
     callbacks = [
         EarlyStopping(patience=10, restore_best_weights=True),
-        ModelCheckpoint('models/best_model.h5', save_best_only=True)
+        ModelCheckpoint('models/saved_model.h5', save_best_only=True)
     ]
 
     # Training Configuration
@@ -153,11 +153,11 @@ def main():
     # Evaluate the model
     evaluate_model(model, X_test, y_test)
 
-    # Run metrics on model
-    metrics(model, X_test, y_test)
-
     # Save the model (optional)
     save_model(model)
+
+    # Run metrics on model
+    metrics('models/saved_model.h5', X_test, y_test)
 
 
 if __name__ == "__main__":

@@ -6,7 +6,7 @@ video_path = '../fire_dataset/fire_videos/fire224.mp4'
 
 
 def load_testing_model():
-    return load_model('models/best_model.h5')
+    return load_model('models/saved_model.h5')
 
 
 def read_video(path):

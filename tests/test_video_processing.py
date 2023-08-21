@@ -32,7 +32,7 @@ def test_preprocess_frame():
 
 def test_apply_model():
     # Load the model
-    model = load_model('../src/models/best_model.h5')
+    model = load_model('../src/models/saved_model.h5')
 
     # Create dummy frames
     frames = [np.zeros((224, 224, 3)) for _ in range(5)]
