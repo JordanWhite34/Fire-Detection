@@ -1,6 +1,6 @@
 from keras.models import load_model
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
-from main import load_and_preprocess_data
+from .preprocessing import load_and_preprocess_data
 
 
 def metrics(model_path, X_test, y_test):
