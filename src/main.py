@@ -86,7 +86,8 @@ def train_model(model, X_train, y_train, X_val, y_val):
 
     # Training Configuration
     batch_size = 32
-    epochs = 100
+    epochs = 5
+    # epochs = 100
 
     # Training the Model
     model.fit(

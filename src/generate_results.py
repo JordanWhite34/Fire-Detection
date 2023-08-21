@@ -9,6 +9,7 @@ def main():
     # Load the Model
     model_path = 'models/saved_model.h5'
     model = load_model(model_path)
+    model.summary()
 
     # Load and Preprocess Some Test Images
     _, _, X_test, _, _, y_test = load_and_preprocess_data()
