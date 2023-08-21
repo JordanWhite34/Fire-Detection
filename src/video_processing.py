@@ -38,9 +38,6 @@ def preprocess_frame(p_frame):
         p_frame: The processed
     """
 
-    # Right now I don't think this will work when the fire is outside the crop
-    # TODO: Adjust it somehow so crop doesnt mess it up
-
     if p_frame is not None:
         p_frame = cv2.resize(p_frame, (224, 224))  # resize
         p_frame = p_frame / 255.0  # normalize
