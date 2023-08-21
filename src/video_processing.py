@@ -3,7 +3,10 @@ import numpy as np
 from keras.models import load_model
 
 video_path = '../fire_dataset/fire_videos/fire224.mp4'
-testing_model = load_model('models/best_model.h5')
+
+
+def load_testing_model():
+    return load_model('models/best_model.h5')
 
 
 def read_video(path):
@@ -62,7 +65,7 @@ def apply_model(model, frames):
     return predicted_labels
 
 
-def save_results(results):
+def save_results(results, results_path='results/results.txt'):
     """
     Saves predictions of model in a .txt file
 
@@ -70,7 +73,7 @@ def save_results(results):
         results: list of True's and False's showing if fire is detected for each frame
     """
     # Open the file in write mode, creating it if it does not exist
-    with open('results/results.txt', 'w') as file:
+    with open(results_path, 'w') as file:
         # Iterate through the results list
         for result in results:
             # Write 'True' or 'False' in the file on a new line
@@ -78,6 +81,9 @@ def save_results(results):
 
 
 def main():
+    # define model
+    testing_model = load_testing_model()
+
     # Load and preprocess the data
     video = read_video(video_path)
 
