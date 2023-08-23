@@ -25,3 +25,10 @@ def extract_rois(frame, contours):
     rois = [cv2.boundingRect(contour) for contour in contours]
     return [frame[y:y+h, x:x+w] for (x, y, w, h) in rois]
 
+
+# Main function for detecting possible fire regions in image
+def detect_fire_regions(frame, lower_bound, upper_bound):
+    hsv_image = convert_to_hsv(frame)  # Convert to HSV
+    mask = create_mask(hsv_image, lower_bound, upper_bound)  # Create color mask
+    contours = find_contours(mask)  # Find contours
+    return extract_rois(frame, contours)  # Extract ROIs
