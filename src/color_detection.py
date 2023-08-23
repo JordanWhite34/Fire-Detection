@@ -16,27 +16,32 @@ def create_mask(hsv_image, lower_bound, upper_bound):
 
 
 # Find the contours/boundaries of connected components in the binary mask
-def find_contours(mask):
-    return cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[0]
+def find_contour(mask):
+    contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    if not contours:
+        return None
+    return max(contours, key=cv2.contourArea)
 
 
 # Extract regions of interest (ROIs) from the original image using the contours
-def extract_rois(frame, contours):
-    rois = [cv2.boundingRect(contour) for contour in contours]
-    return [frame[y:y+h, x:x+w] for (x, y, w, h) in rois]
+def extract_rois(frame, contour):
+    if contour is None:
+        return None
+    x, y, w, h = cv2.boundingRect(contour)
+    return frame[y:y+h, x:x+w]
 
 
 # Main function for detecting possible fire regions in image
 def detect_fire_regions(frame, lower_bound, upper_bound):
     hsv_image = convert_to_hsv(frame)  # Convert to HSV
     mask = create_mask(hsv_image, lower_bound, upper_bound)  # Create color mask
-    contours = find_contours(mask)  # Find contours
-    return extract_rois(frame, contours)  # Extract ROIs
+    largest_contour = find_contour(mask)  # Find largest contour
+    return extract_rois(frame, largest_contour)  # Extract ROIs
 
 
 # Visualizes detected regions, drawing a rectangle around them
-def visualize_detection(frame, contours):
-    for contour in contours:
+def visualize_detection(frame: object, contour):
+    if contour is not None:
         x, y, w, h = cv2.boundingRect(contour)
         cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
-    return frame
+        return frame

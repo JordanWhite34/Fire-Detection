@@ -7,16 +7,15 @@ from src.color_detection import detect_fire_regions
 
 def load_and_preprocess_images(path, label):
     images = []
-    # Lower and upper bounds for HSV color space for fire detection
-    # Define the lower and upper bounds for the HSV values
     lower_bound = np.array([0, 74, 200])
     upper_bound = np.array([18, 166, 230])
     for filename in os.listdir(path):
-        img = cv2.imread(os.path.join(path, filename))
+        img = cv2.imread(os.path.join(path, filename), cv2.IMREAD_COLOR)
         if img is not None:
             fire_regions = detect_fire_regions(img, lower_bound, upper_bound)
-            if fire_regions:
+            if fire_regions is not None and len(fire_regions) > 0:
                 region = fire_regions[0]
+                region = cv2.cvtColor(region, cv2.COLOR_GRAY2BGR)
                 region = cv2.resize(region, (224, 224))  # Resize
                 region = region / 255.0  # Normalize
                 images.append((region, label))
