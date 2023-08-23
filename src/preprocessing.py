@@ -2,16 +2,24 @@ import cv2
 import os
 import numpy as np
 from sklearn.model_selection import train_test_split
+from src.color_detection import detect_fire_regions
 
 
 def load_and_preprocess_images(path, label):
     images = []
+    # Lower and upper bounds for HSV color space for fire detection
+    # Define the lower and upper bounds for the HSV values
+    lower_bound = np.array([0, 74, 200])
+    upper_bound = np.array([18, 166, 230])
     for filename in os.listdir(path):
         img = cv2.imread(os.path.join(path, filename))
         if img is not None:
-            img = cv2.resize(img, (224, 224))  # resize
-            img = img / 255.0  # normalize
-            images.append((img, label))
+            fire_regions = detect_fire_regions(img, lower_bound, upper_bound)
+            if fire_regions:
+                region = fire_regions[0]
+                region = cv2.resize(region, (224, 224))  # Resize
+                region = region / 255.0  # Normalize
+                images.append((region, label))
     return images
 
 
