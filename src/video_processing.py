@@ -1,8 +1,9 @@
 import cv2
 import numpy as np
 from keras.models import load_model
+from src.color_detection import detect_fire_region, visualize_detection
 
-video_path = '../fire_dataset/fire_videos/fire224.mp4'
+video_path = '../fire_dataset/fire_videos/fire.mp4'
 
 
 def load_testing_model():
@@ -40,10 +41,18 @@ def preprocess_frame(p_frame):
     Returns:
         p_frame: The processed
     """
+    if p_frame is None:
+        return None
 
-    if p_frame is not None:
+    # Detect a fire region in the frame
+    fire_region = detect_fire_region(p_frame)
+
+    # If a fire region is detected, resize it for preprocessing
+    if fire_region is not None:
+        p_frame = cv2.resize(fire_region, (224, 224))  # Resize
+    elif p_frame is not None:
         p_frame = cv2.resize(p_frame, (224, 224))  # resize
-        p_frame = p_frame / 255.0  # normalize
+    p_frame = p_frame / 255.0  # Normalize
     return p_frame
 
 

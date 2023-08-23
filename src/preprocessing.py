@@ -2,7 +2,7 @@ import cv2
 import os
 import numpy as np
 from sklearn.model_selection import train_test_split
-from src.color_detection import detect_fire_regions
+from src.color_detection import detect_fire_region
 
 
 def load_and_preprocess_images(path, label):
@@ -10,7 +10,7 @@ def load_and_preprocess_images(path, label):
     for filename in os.listdir(path):
         img = cv2.imread(os.path.join(path, filename), cv2.IMREAD_COLOR)
         if img is not None:
-            fire_region = detect_fire_regions(img)
+            fire_region = detect_fire_region(img)
             if fire_region is not None:
                 fire_region = cv2.resize(fire_region, (224, 224))  # Resize
                 fire_region = fire_region / 255.0  # Normalize
