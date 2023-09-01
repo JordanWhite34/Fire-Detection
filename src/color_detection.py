@@ -36,7 +36,13 @@ def detect_fire_region(frame, lower_bound = np.array([0, 74, 200]), upper_bound 
     hsv_image = convert_to_hsv(frame)  # Convert to HSV
     mask = create_mask(hsv_image, lower_bound, upper_bound)  # Create color mask
     largest_contour = find_contour(mask)  # Find largest contour
-    return extract_rois(frame, largest_contour)  # Extract ROIs
+    fire_region = extract_rois(frame, largest_contour)  # Extract ROIs
+
+    if largest_contour is not None:
+        x, y, w, h = cv2.boundingRect(largest_contour)
+        return fire_region, x, y
+    else:
+        return None, None, None
 
 
 # Visualizes detected regions, drawing a rectangle around them
