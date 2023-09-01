@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 from keras.models import load_model
-from src.color_detection import detect_fire_region, visualize_detection
+from src.color_detection import detect_fire_region, visualize_detection, find_contour
 
 video_path = '../fire_dataset/fire_videos/fire.mp4'
 
@@ -44,16 +44,13 @@ def preprocess_frame(p_frame):
     if p_frame is None:
         return None
 
-    # Detect a fire region in the frame
-    fire_region = detect_fire_region(p_frame)
-
-    # If a fire region is detected, resize it for preprocessing
-    if fire_region is not None:
-        p_frame = cv2.resize(fire_region, (224, 224))  # Resize
-    elif p_frame is not None:
-        p_frame = cv2.resize(p_frame, (224, 224))  # resize
-    p_frame = p_frame / 255.0  # Normalize
-    return p_frame
+    if isinstance(p_frame, np.ndarray):
+        p_frame = cv2.resize(p_frame, (224, 224))  # Resize
+        p_frame = p_frame / 255.0  # Normalize
+        return p_frame
+    else:
+        print(f"Unexpected type for fire_region: {type(p_frame)}")
+        return None
 
 
 def apply_model(model, frames):
@@ -96,6 +93,12 @@ def main():
     # Load and preprocess the data
     video = read_video(video_path)
 
+    # Get the frame rate of the video
+    frame_rate = video.get(cv2.CAP_PROP_FPS)
+
+    # Calculate the delay between frames in milliseconds
+    delay = int(1000 / frame_rate)
+
     # Creating list to store fire detection results for each frame
     fire_detection = []
 
@@ -106,6 +109,25 @@ def main():
         # Break loop at end of video
         if not ret:
             break
+
+        # Detect fire regions, getting largest contour and offsets
+        fire_region, x_offset, y_offset = detect_fire_region(frame)
+
+        # If a fire region is detected, visualize it
+        if fire_region is not None:
+            largest_contour = find_contour(cv2.cvtColor(fire_region, cv2.COLOR_BGR2GRAY))  # Find largest contour
+            if largest_contour is not None:
+                x, y, w, h = cv2.boundingRect(largest_contour)
+                x += x_offset  # Adjust x coordinate
+                y += y_offset  # Adjust y coordinate
+                cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)  # Draw rectangle directly
+            frame_with_detection = frame
+        else:
+            frame_with_detection = frame
+
+        # Display visualized frame
+        cv2.imshow('Fire Detection', frame_with_detection)
+        cv2.waitKey(delay)
 
         # Preprocess frame
         p_frame = preprocess_frame(frame)
