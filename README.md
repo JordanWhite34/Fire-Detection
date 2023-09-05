@@ -68,8 +68,7 @@ Run the tests using pytest (and make sure you are in the tests directory):
 
 ## Current Efforts
 
-Right now I am working on implementing an object detection pre-step so when the preprocessing crops the photo, it won't
-crop out the fire in the photo.
+Right now I am working on implementing live video functionality.
 
 ## Contributions
 
