@@ -3,7 +3,7 @@ import numpy as np
 from keras.models import load_model
 from src.color_detection import detect_fire_region, visualize_detection, find_contour
 
-video_path = '../fire_dataset/fire_videos/fire.mp4'
+video_path = '../fire_dataset/fire_videos/forest.mp4'
 
 
 def load_testing_model():
