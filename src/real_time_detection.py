@@ -3,20 +3,34 @@ from color_detection import detect_fire_region, visualize_detection
 from keras.models import load_model
 import numpy as np
 
+
 def main():
     # Initialize the webcam
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(1)
+
+    # Check if the webcam is opened correctly
+    if not cap.isOpened():
+        print("Error: Could not open webcam.")
+        exit()
+
+    # Enable detailed exceptions
+    cap.setExceptionMode(True)
 
     # Load your trained fire detection model
-    model = load_model('path/to/your/saved/model.h5')
+    model = load_model('models/saved_model.h5')
 
     # Loop to continuously get frames
     while True:
         # Capture frame-by-frame
         ret, frame = cap.read()
 
+        # Check if frame is captured successfully
+        if not ret:
+            print("Error: Could not read frame.")
+            break
+
         # Detect potential fire regions
-        fire_region, x, y = detect_fire_region(frame)
+        fire_region, x, y, largest_contour = detect_fire_region(frame)
 
         if fire_region is not None:
             # Preprocess the fire_region for your model
@@ -26,14 +40,19 @@ def main():
             # Predict using your fire detection model
             prediction = model.predict(fire_region)
 
+            # Determine the color of the bounding box
+            color = (0, 255, 0)  # Green by default
+            if prediction[0][0] > 0.5:  # Assuming your model outputs a probability for the 'fire' class
+                color = (0, 0, 255)  # Change to Red if fire is detected
+
             # Visualize the detected fire regions
-            frame_with_boxes = visualize_detection(frame, x, y, prediction)
+            if x is not None and y is not None:
+                x, y, w, h = cv2.boundingRect(
+                    largest_contour)  # You'll need to get 'largest_contour' from your detect_fire_region function
+                cv2.rectangle(frame, (x, y), (x + w, y + h), color, 2)
 
-            # Display the frame
-            cv2.imshow('Real-Time Fire Detection', frame_with_boxes)
-
-        else:
-            cv2.imshow('Real-Time Fire Detection', frame)
+        # Display the frame
+        cv2.imshow('Real-Time Fire Detection', frame)
 
         # Break the loop if 'q' is pressed
         if cv2.waitKey(1) & 0xFF == ord('q'):

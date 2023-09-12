@@ -40,9 +40,9 @@ def detect_fire_region(frame, lower_bound = np.array([0, 74, 200]), upper_bound 
 
     if largest_contour is not None:
         x, y, w, h = cv2.boundingRect(largest_contour)
-        return fire_region, x, y
+        return fire_region, x, y, largest_contour
     else:
-        return None, None, None
+        return None, None, None, None
 
 
 # Visualizes detected regions, drawing a rectangle around them
