@@ -54,7 +54,7 @@ def main():
         # Display the frame
         cv2.imshow('Real-Time Fire Detection', frame)
 
-        # Break the loop if 'q' is pressed
+        # Break the loop if 'q' is pressed by user
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
