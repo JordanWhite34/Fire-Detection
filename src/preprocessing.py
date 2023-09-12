@@ -10,7 +10,7 @@ def load_and_preprocess_images(path, label):
     for filename in os.listdir(path):
         img = cv2.imread(os.path.join(path, filename), cv2.IMREAD_COLOR)
         if img is not None:
-            fire_region = detect_fire_region(img)
+            fire_region, _, _, _ = detect_fire_region(img)
             if fire_region is not None:
                 fire_region = cv2.resize(fire_region, (224, 224))  # Resize
                 fire_region = fire_region / 255.0  # Normalize

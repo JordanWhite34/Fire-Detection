@@ -111,7 +111,7 @@ def main():
             break
 
         # Detect fire regions, getting largest contour and offsets
-        fire_region, x_offset, y_offset = detect_fire_region(frame)
+        fire_region, x_offset, y_offset, _ = detect_fire_region(frame)
 
         # If a fire region is detected, visualize it
         if fire_region is not None:
