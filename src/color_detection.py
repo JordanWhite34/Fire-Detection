@@ -34,7 +34,10 @@ def extract_rois(frame, contour):
 # Main function for detecting possible fire regions in image
 def detect_fire_region(frame, lower_bound = np.array([0, 74, 200]), upper_bound = np.array([18, 166, 230])):
     hsv_image = convert_to_hsv(frame)  # Convert to HSV
-    mask = create_mask(hsv_image, lower_bound, upper_bound)  # Create color mask
+    mask = create_mask(hsv_image, lower_bound, upper_bound)
+    kernel = np.ones((5, 5), np.uint8)
+    mask = cv2.erode(mask, kernel, iterations=1)
+    mask = cv2.dilate(mask, kernel, iterations=1)
     largest_contour = find_contour(mask)  # Find largest contour
     fire_region = extract_rois(frame, largest_contour)  # Extract ROIs
 
