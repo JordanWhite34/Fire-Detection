@@ -56,6 +56,7 @@ def main():
 
         # Break the loop if 'q' is pressed by user
         if cv2.waitKey(1) & 0xFF == ord('q'):
+            print("'q' pressed, ending video capture")
             break
 
     # When everything is done, release the capture
